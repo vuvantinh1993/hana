@@ -51,12 +51,21 @@ namespace hana
             IWebDriver chromeDriver = new ChromeDriver(option);
 
 
-            var re = loginFb.LoginFacebook(chromeDriver);
+            //var re = loginFb.LoginFacebook(chromeDriver);
+            var re = "Ok";
             if (re == "Ok")
             {
+                chromeDriver.FindElement(By.CssSelector("body")).SendKeys(Keys.Control + "t");
+                chromeDriver.SwitchTo().Window(chromeDriver.WindowHandles.Last());
                 // thao tac tiep
                 loginHana.LoginHanaa(chromeDriver);
-                loginHana.SelectAccount("", chromeDriver);
+                loginHana.GetJobHana(chromeDriver);
+
+
+                for (int i = 0; i < 100; i--)
+                {
+                    Thread.Sleep(500);
+                }
 
             }
             else
