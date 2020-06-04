@@ -45,6 +45,7 @@ namespace hana
             {
                 string name = "100027294830101";
                 option.AddArgument("user-data-dir=" + Profile + "\\" + name);
+                option.AddArgument("no-sandbox");
             }
 
 

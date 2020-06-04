@@ -67,24 +67,35 @@ namespace hana
         public void GetJobHana(IWebDriver chromeDriver)
         {
             chromeDriver.Url = _urlJobfb;
-            Thread.Sleep(2000);
-            //To wait for element visible
-            WebDriverWait wait = new WebDriverWait(chromeDriver, TimeSpan.FromTicks(1000));
-            wait.Until(drv => drv.FindElement(By.XPath("//a[@data-v-99f91c00]")));
 
 
-            var sele = chromeDriver.FindElements(By.XPath("//a[@data-v-99f91c00]"));
-            var listLinkHana = new List<string>();
+            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10000);
 
-            for (int i = 0; i < sele.Count; i++)
+            WebDriverWait wait = new WebDriverWait(chromeDriver, new TimeSpan(0, 0, 10));
+            try
             {
-                var linkJobHana = sele[i].GetAttribute("href");
-                listLinkHana.Add(linkJobHana);
+                wait.Until(drv => drv.FindElements(By.XPath("//a[@data-v-99f91c00]")));
+                var sele = chromeDriver.FindElements(By.XPath("//a[@data-v-99f91c00]"));
+                var listLinkHana = new List<string>();
+
+                for (int i = 0; i < sele.Count; i++)
+                {
+                    var linkJobHana = sele[i].GetAttribute("href");
+                    listLinkHana.Add(linkJobHana);
+                }
+                for (int i = 0; i < listLinkHana.Count; i++)
+                {
+                    chromeDriver.Url = listLinkHana[i];
+                }
             }
-            for (int i = 0; i < listLinkHana.Count; i++)
+            catch
             {
-                chromeDriver.Url = listLinkHana[i];
+                chromeDriver.Url = _urlJobfb;
+                chromeDriver.Navigate();
             }
+
+
+
             //var m = c[0].GetAttribute("href");
 
 
@@ -96,7 +107,7 @@ namespace hana
         {
 
             //To wait for element visible
-            WebDriverWait wait = new WebDriverWait(chromeDriver, TimeSpan.FromTicks(15));
+            WebDriverWait wait = new WebDriverWait(chromeDriver, TimeSpan.FromTicks(5000));
             wait.Until(drv => drv.FindElement(By.XPath("//a[@data-v-99f91c00]")));
 
 
