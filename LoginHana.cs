@@ -85,7 +85,18 @@ namespace hana
                 }
                 for (int i = 0; i < listLinkHana.Count; i++)
                 {
+
                     chromeDriver.Url = listLinkHana[i];
+                    wait.Until(drv => drv.FindElements(By.XPath("//img[@data-v-1c9abe03]")));
+                    var sele2 = chromeDriver.FindElements(By.XPath("//img[@data-v-1c9abe03]"));
+                    if (sele2[0].GetAttribute("src") == "https://admin.amaiteam.com/img/seeding/follow.png")
+                    {
+                        var jobfolow = 1;
+                    }
+                    else
+                    {
+                        var jobfolow = 0;
+                    }
                 }
             }
             catch
